@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Privapp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Opciones</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">GPS</string>
+    <string name="menu_slideshow">Noticias</string>
+    <string name="menu_tools">Configuración</string>
+    <string name="menu_share">Acerca de...</string>
+    <string name="menu_send">Contacto</string>
+
+    <string name="submenu_app">App</string>
+</resources>
