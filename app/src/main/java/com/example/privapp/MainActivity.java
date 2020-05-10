@@ -1,10 +1,14 @@
 package com.example.privapp;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -20,8 +24,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -51,7 +64,38 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
+
+    /*public void permisos(View v){
+        PackageManager pm = getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+        for (ApplicationInfo applicationInfo : packages) {
+            //Log.d("test", "App: " + applicationInfo.name + " Package: " + applicationInfo.packageName);
+
+            //Log.d("test", "" + pm.getApplicationLabel(applicationInfo));
+
+            try {
+                PackageInfo packageInfo = pm.getPackageInfo(applicationInfo.packageName, PackageManager.GET_PERMISSIONS);
+
+                //Get Permissions
+                String[] requestedPermissions = packageInfo.requestedPermissions;
+
+                if(requestedPermissions != null) {
+                    for (int i = 0; i < requestedPermissions.length; i++) {
+                        //Log.d("test", requestedPermissions[i]);
+                        if (requestedPermissions[i].equals("android.permission.ACCESS_FINE_LOCATION")){
+                            //Log.d("test", requestedPermissions[i]);
+                            Log.d("test", "" + pm.getApplicationLabel(applicationInfo));
+                        }
+                    }
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
