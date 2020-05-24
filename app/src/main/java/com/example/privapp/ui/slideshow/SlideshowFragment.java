@@ -1,9 +1,11 @@
 package com.example.privapp.ui.slideshow;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
@@ -16,30 +18,58 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.privapp.R;
 
+import java.security.Key;
+
 public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
-    private WebView webViewx;
-    private View view;
+    private WebView miVisorWeb;
+    private String url = "https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNREl5ZUY4U0JtVnpMVFF4T1NnQVAB?oc=3&ceid=MX:es-419";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(this, new Observer<String>() {
+
+        //Inflate the layout for this fragment xdd
+        View v = inflater.inflate(R.layout.fragment_slideshow, container, false);
+
+        miVisorWeb = (WebView) v.findViewById(R.id.visorWeb);
+        final WebSettings ajustesVisorWeb = miVisorWeb.getSettings();
+        ajustesVisorWeb.setJavaScriptEnabled(true);
+        /*miVisorWeb.setWebViewClient(new WebViewClient(){
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                miVisorWeb.loadUrl(url);
+                return true;
+            }
+        });*/
+        miVisorWeb.setWebViewClient(new WebViewClient());
+        miVisorWeb.loadUrl(url);
+
+        //Boton volver (funciona para activities y fragmentos xd)
+        miVisorWeb.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    WebView webView = (WebView) v;
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_BACK:
+                            if (webView.canGoBack())
+                            {
+                                webView.goBack();
+                                return true;
+                            }
+                            break;
+                    }
+                }
+                return false;
             }
         });
 
-        view = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        webViewx = (WebView) view.findViewById(R.id.webView);
-        webViewx.setWebViewClient(new WebViewClient());
-        webViewx.getSettings().setJavaScriptEnabled(true);
-        webViewx.loadUrl("https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNREl5ZUY4U0JtVnpMVFF4T1NnQVAB?oc=3&ceid=MX:es-419");
-        return root;
+        return v;
     }
+
 }
