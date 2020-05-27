@@ -41,7 +41,7 @@ import java.util.List;
 public class GalleryFragment extends Fragment {
 
     private ListView lista;
-    private TextView appsGPSR, appsTotalR;
+    private TextView appsGPSR, appsTotalR, porcentaje;
     private Button analizar;
     private ArrayList<Modelo> mList = new ArrayList<>();
     private Adaptador mAdapter;
@@ -69,6 +69,8 @@ public class GalleryFragment extends Fragment {
         lista = (ListView) getView().findViewById(R.id.lista);
         appsGPSR = (TextView) getView().findViewById(R.id.appsGPSR);
         appsTotalR = (TextView) getView().findViewById(R.id.appsTotalR);
+        porcentaje = (TextView) getView().findViewById(R.id.porcentaje);
+
 
         analizar = (Button) getView().findViewById(R.id.analizar);
         analizar.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +102,7 @@ public class GalleryFragment extends Fragment {
                         }
                     }
                 appsGPSR.setText(Integer.toString(appsGPS));
+                    porcentaje.setText(Integer.toString(appsGPS*100/packages.size()) + "%");
                 mAdapter = new Adaptador(getActivity().getBaseContext(), R.layout.list_custom, mList);
                 lista.setAdapter(mAdapter);
             }
